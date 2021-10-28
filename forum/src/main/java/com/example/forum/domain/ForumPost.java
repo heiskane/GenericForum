@@ -1,6 +1,7 @@
 package com.example.forum.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class ForumPost {
@@ -18,6 +19,9 @@ public class ForumPost {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Comment> comments;
 
     public ForumPost() {}
 

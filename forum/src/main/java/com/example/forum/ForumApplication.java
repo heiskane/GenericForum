@@ -1,9 +1,6 @@
 package com.example.forum;
 
-import com.example.forum.domain.ForumPost;
-import com.example.forum.domain.ForumPostRepository;
-import com.example.forum.domain.User;
-import com.example.forum.domain.UserRepository;
+import com.example.forum.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -21,16 +18,44 @@ public class ForumApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(UserRepository userRepository, ForumPostRepository forumRepository) {
+	public CommandLineRunner demo(
+			UserRepository userRepository,
+			ForumPostRepository forumRepository,
+			CommentRepository commentRepository) {
 		return (args) -> {
 			log.info("Commandline runner test");
-			User user1 = new User("admin", "test1@example.com", "ADMIN", "$2a$12$k/mfM5H1FD9pwckLeV3Hy.q3RcoN8YHVDrGAZkyJmLl5eRkTTJxmC");
-			User user2 = new User("Test2", "test2@example.com", "USER", "hash_this_later");
+			User user1 = new User("admin", "test1@example.com", "ADMIN", "admin");
+			User user2 = new User("guest", "test2@example.com", "GUEST", "guest");
 
 			userRepository.save(user1);
 			userRepository.save(user2);
 
-			forumRepository.save(new ForumPost("First Post", "The best content", user1));
+			ForumPost post = new ForumPost("First Post", "The best content", user1);
+
+			forumRepository.save(post);
+
+			Comment comment1 = new Comment(
+				user1, post, "Hello world"
+			);
+
+			Comment comment2 = new Comment(
+					user1, post, "Something interesting"
+			);
+
+			commentRepository.save(comment1);
+			commentRepository.save(comment2);
+
+			Comment reply1 = new Comment(
+					user2, comment1, "Hello Reply1"
+			);
+
+			Comment reply2 = new Comment(
+					user1, reply1, "Hello Reply2"
+			);
+
+			commentRepository.save(reply1);
+			commentRepository.save(reply2);
+
 		};
 	}
 

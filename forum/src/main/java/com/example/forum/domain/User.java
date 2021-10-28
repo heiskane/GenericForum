@@ -1,6 +1,7 @@
 package com.example.forum.domain;
 
 import com.sun.istack.NotNull;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import java.util.List;
@@ -47,8 +48,9 @@ public class User {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    public void setPasswordHash(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.passwordHash = passwordEncoder.encode(password);
     }
 
     public String getRole() { return role; }
@@ -65,11 +67,12 @@ public class User {
 
     public User() {}
 
-    public User(String name, String email, String role, String passwordHash) {
+    public User(String name, String email, String role, String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.name = name;
         this.email = email;
         this.role = role;
-        this.passwordHash = passwordHash;
+        this.passwordHash = passwordEncoder.encode(password);
     }
 
     @Override
