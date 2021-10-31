@@ -13,7 +13,7 @@ public class ForumPost {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(length=4096, nullable = false)
     private String content;
 
     @ManyToOne
