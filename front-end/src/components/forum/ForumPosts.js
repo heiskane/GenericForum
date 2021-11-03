@@ -29,8 +29,8 @@ export default function ForumPosts() {
       alignItems="center"
       spacing={2}>
       <Grid item xs={8}>
-        {posts.map((post) =>
-          <ForumPost key={post.title} post={post} />
+        {posts.map((post, index) =>
+          <ForumPost key={index} post={post} />
         )}
       </Grid>
     </Grid>

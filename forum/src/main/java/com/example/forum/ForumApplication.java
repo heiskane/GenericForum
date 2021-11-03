@@ -55,7 +55,7 @@ public class ForumApplication {
 			forumRepository.save(post2);
 
 			Comment comment1 = new Comment(
-				user1, post1, "Hello world"
+					user1, post1, "Hello world"
 			);
 
 			Comment comment2 = new Comment(
@@ -73,8 +73,13 @@ public class ForumApplication {
 					user1, reply1, "Hello Reply2"
 			);
 
+			Comment reply3 = new Comment(
+					user2, comment1, "Another reply to comment"
+			);
+
 			commentRepository.save(reply1);
 			commentRepository.save(reply2);
+			commentRepository.save(reply3);
 
 		};
 	}

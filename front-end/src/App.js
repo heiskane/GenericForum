@@ -19,13 +19,13 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">
-          <Header />
-          <LoginForm />
-        </Route>
         <Route exact path="/">
           <Header />
           <Forum />
+        </Route>
+        <Route path="/login">
+          <Header />
+          <LoginForm />
         </Route>
       </Switch>
     </Router>

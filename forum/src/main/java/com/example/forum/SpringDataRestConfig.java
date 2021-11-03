@@ -1,5 +1,7 @@
 package com.example.forum;
 
+import com.example.forum.domain.Comment;
+import com.example.forum.domain.ForumPost;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.stereotype.Component;
@@ -17,5 +19,8 @@ public class SpringDataRestConfig implements RepositoryRestConfigurer {
                 .allowedMethods("POST", "PUT", "GET",  "DELETE", "OPTIONS")
                 .allowedOrigins("http://localhost:3000")
                 .allowCredentials(true).maxAge(3600);
+
+        // Expose IDs in the api
+        config.exposeIdsFor(ForumPost.class, Comment.class);
     }
 }
