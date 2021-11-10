@@ -24,8 +24,11 @@ public class ForumApplication {
 			CommentRepository commentRepository) {
 		return (args) -> {
 			log.info("Commandline runner test");
-			User user1 = new User("admin", "test1@example.com", "ADMIN", "admin");
-			User user2 = new User("guest", "test2@example.com", "GUEST", "guest");
+			User user1 = new User("admin", "test1@example.com", "admin");
+			user1.setRole("ADMIN");
+
+			User user2 = new User("guest", "test2@example.com", "guest");
+			user2.setRole("GUEST");
 
 			userRepository.save(user1);
 			userRepository.save(user2);

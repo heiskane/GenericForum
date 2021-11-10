@@ -1,7 +1,6 @@
 package com.example.forum.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -20,10 +19,11 @@ public class User {
     @Column(nullable = false)
     private String email;
 
-    private String role;
+    private String role = "USER";
 
     @JsonIgnore
-    private String passwordHash;
+    @Column(nullable = false)
+    private String password;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
@@ -47,13 +47,13 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswordHash(String password) {
+    public void setPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.passwordHash = passwordEncoder.encode(password);
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getRole() { return role; }
@@ -70,12 +70,11 @@ public class User {
 
     public User() {}
 
-    public User(String name, String email, String role, String password) {
+    public User(String name, String email, String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.name = name;
         this.email = email;
-        this.role = role;
-        this.passwordHash = passwordEncoder.encode(password);
+        this.password = passwordEncoder.encode(password);
     }
 
     @Override
@@ -84,7 +83,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", passwordHash='" + passwordHash + '\'' +
+                ", passwordHash='" + password + '\'' +
                 '}';
     }
 }

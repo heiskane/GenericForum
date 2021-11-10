@@ -7,12 +7,13 @@ import {
 import axios from 'axios';
 
 import { useState } from 'react';
-
-import LoginForm from './components/login/LoginForm'
-import Header from './components/header/Header'
-import Forum from './components/forum/Forum'
 import { CookiesProvider } from 'react-cookie';
 import { useCookies } from 'react-cookie';
+
+import LoginForm from './components/login/LoginForm'
+import RegisterForm from './components/register/RegisterForm'
+import Header from './components/header/Header'
+import Forum from './components/forum/Forum'
 
 axios.defaults.baseURL = 'http://localhost:8080'
 axios.defaults.withCredentials = true
@@ -46,6 +47,10 @@ function App() {
           <Route path="/login">
             <Header username={username} logout={logout} />
             <LoginForm loginUser={loginUser} />
+          </Route>
+          <Route path="/register">
+            <Header username={username} logout={logout} />
+            <RegisterForm />
           </Route>
         </Switch>
       </Router>
