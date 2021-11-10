@@ -16,7 +16,7 @@ export default function ForumPostComment({comment, parentComment, iteration = 0}
   
     instance.get(comment._links.replies.href)
       .then((res) => {
-        setReplies(res.data._embedded.comments)
+        setReplies(res.data._embedded.comments.reverse())
       });
 
     instance.get(comment._links.user.href)

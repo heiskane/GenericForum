@@ -74,5 +74,23 @@ public class ForumController {
                 new Comment(user, comment, message.get("message"))
         );
     }
-    
+
+    @PostMapping("/forumPosts")
+    public ForumPost postToForum(
+            @RequestBody Map<String, String> post,
+            Principal principal
+    ) {
+
+        User user = userRepository.findByName(principal.getName());
+
+        return forumPostRepository.save(
+                new ForumPost(post.get("title"), post.get("content"), user)
+        );
+    }
+
+    @GetMapping("/profile")
+    public User get_curr_user(Principal principal) {
+        return userRepository.findByName(principal.getName());
+    }
+
 }

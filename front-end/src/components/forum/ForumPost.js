@@ -18,7 +18,7 @@ export default function ForumPost({post}) {
     instance.get(post._links.comments.href)
       .then((res) => {
         if (res.data._embedded) {
-          setComments(res.data._embedded.comments)
+          setComments(res.data._embedded.comments.reverse())
         }
       });
   }
@@ -48,8 +48,8 @@ export default function ForumPost({post}) {
       <Typography>
         {post.content}
       </Typography>
-      <RenderComments />
       <ForumPostCommentForm setComments={setComments} post={post} />
+      <RenderComments />
     </Box>
   )
 

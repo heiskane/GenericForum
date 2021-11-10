@@ -1,5 +1,7 @@
 package com.example.forum.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,10 +19,12 @@ public class ForumPost {
     private String content;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    @JsonIgnore
     private List<Comment> comments;
 
     public ForumPost() {}

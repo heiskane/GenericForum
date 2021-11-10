@@ -26,7 +26,7 @@ export default function ForumPostCommentForm({post, setComments}) {
     console.log(msg)
     instance.get(`/api/comments/${msg.id}`)
       .then((res) => {
-        setComments(comments => [...comments, res.data])
+        setComments(comments => [res.data, ...comments])
       })
   }
 

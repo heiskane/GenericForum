@@ -23,7 +23,7 @@ export default function CommentReplyForm({comment, setShowForm, setReplies}) {
     instance.get(`/api/comments/${msg.id}`)
       .then((res) => {
         setShowForm(false);
-        setReplies(replies => [...replies, res.data]);
+        setReplies(replies => [res.data, ...replies]);
       })
   }
 

@@ -1,5 +1,6 @@
 package com.example.forum.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -20,9 +21,11 @@ public class User {
     private String email;
 
     private String role;
-    
+
+    @JsonIgnore
     private String passwordHash;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<ForumPost> forumPosts;
 

@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@mui/material/Grid';
 
-import ForumPost from './ForumPost'
+import ForumPost from './ForumPost';
+import ForumPostForm from './ForumPostForm';
 
 export default function ForumPosts() {
 
@@ -12,7 +13,8 @@ export default function ForumPosts() {
     const instance = axios.create();
     instance.get("/api/forumPosts")
       .then((res) => {
-        setPosts(res.data._embedded.forumPosts)
+        let posts = res.data._embedded.forumPosts
+        setPosts(posts.reverse())
       })
       .catch((err) => {
         console.log(err)
@@ -28,6 +30,7 @@ export default function ForumPosts() {
       justifyContent="center"
       alignItems="center"
       spacing={2}>
+    <ForumPostForm setPosts={setPosts} />
       <Grid item xs={8}>
         {posts.map((post, index) =>
           <ForumPost key={index} post={post} />
