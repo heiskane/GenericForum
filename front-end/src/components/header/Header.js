@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+export default function Header({username, logout}) {
 
   return (
     <Box sx={{flexGrow: 1}}>
@@ -38,11 +38,22 @@ export default function Header() {
             Generic Forum
           </Typography>
           
-          <Button
-            color="inherit"
-            component={Link}
-            to="/login"
-          >Login</Button>
+          <Typography color="inherit">{username}</Typography>
+          {username ? (
+            <Button
+              color="inherit"
+              component={Link}
+              to="/login"
+              onClick={logout}
+            >Logout</Button>
+            ) : (
+            <Button
+              color="inherit"
+              component={Link}
+              to="/login"
+            >Login</Button>
+            )
+          }
 
         </Toolbar>
       </AppBar>

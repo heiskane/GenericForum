@@ -10,28 +10,34 @@ import Typography from '@mui/material/Typography';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
-export default function LoginForm() {
+export default function LoginForm({loginUser}) {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSubmit = (event) => {
+  async function handleSubmit(event) {
     event.preventDefault();
     const instance = axios.create();
-    instance.post('/login', new URLSearchParams({
+    await instance.post('/login', new URLSearchParams({
         username: username,
         password: password,
       }))
       .then((res) => {
         if (res.status === 200) {
-          setIsLoggedIn(true);
+          console.log("idk")
         }
       })
       .catch((err) => {
         console.log(err)
       })
+
+    instance.get("/profile")
+    .then((res) => {
+      loginUser(res.data.name)
+      setIsLoggedIn(true);
+    })
   }
 
     return isLoggedIn ? (
