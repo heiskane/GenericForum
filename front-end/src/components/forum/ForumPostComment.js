@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import axios from 'axios';
+import CommentReplyForm from './CommentReplyForm';
 
 export default function ForumPostComment({comment, parentComment, iteration = 0}) {
 
   const [replies, setReplies] = useState([]);
   const [user, setUser] = useState();
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const instance = axios.create();
@@ -52,6 +55,17 @@ export default function ForumPostComment({comment, parentComment, iteration = 0}
         <Typography>
           Message: {comment.message}
         </Typography>
+        { showForm ?
+          (<CommentReplyForm
+            comment={comment}
+            setShowForm={setShowForm}
+            setReplies={setReplies} />) :
+          (
+            <Button onClick={() => setShowForm(true)}>
+              Reply
+            </Button>
+          )
+        }
       </Box>
       <RenderReplies />
     </Box>

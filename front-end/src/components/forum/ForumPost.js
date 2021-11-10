@@ -7,7 +7,7 @@ import ForumPostCommentForm from './ForumPostCommentForm';
 
 export default function ForumPost({post}) {
 
-  const [comments, setComments] = useState();
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     getComments();
@@ -23,17 +23,15 @@ export default function ForumPost({post}) {
       });
   }
 
+
   function RenderComments() {
     if (comments && comments.length !== 0) {
       return (
-        <ForumPostComments comments={comments} />
+        <ForumPostComments
+          comments={comments} />
       )
     }
     return null;
-  }
-
-  function refreshComments() {
-    getComments();
   }
 
   return (
@@ -51,7 +49,7 @@ export default function ForumPost({post}) {
         {post.content}
       </Typography>
       <RenderComments />
-      <ForumPostCommentForm refresh={refreshComments} post={post} />
+      <ForumPostCommentForm setComments={setComments} post={post} />
     </Box>
   )
 

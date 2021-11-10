@@ -7,20 +7,27 @@ import Grid from '@mui/material/Grid';
 
 import axios from 'axios';
 
-export default function ForumPostCommentForm({post, refresh}) {
+export default function ForumPostCommentForm({post, setComments}) {
 
   const [message, setMessage] = useState();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+
     const instance = axios.create();
-    instance.post(`/comment/${post.id}`,{
+    var msg = await instance.post(`/forumPosts/${post.id}/comments`,{
       message: message
     })
       .then((res) => {
-        console.log(res)
+        console.log(res.data)
+        return res.data
       });
-    refresh();
+
+    console.log(msg)
+    instance.get(`/api/comments/${msg.id}`)
+      .then((res) => {
+        setComments(comments => [...comments, res.data])
+      })
   }
 
   return (

@@ -35,7 +35,7 @@ public class ForumController {
     };
     */
 
-    @PostMapping("/comment/{post_id}")
+    @PostMapping("/forumPosts/{post_id}/comments")
     public Comment commentOnPost(
             @PathVariable Long post_id,
             @RequestBody Map<String, String> message,
@@ -55,4 +55,24 @@ public class ForumController {
                 new Comment(user, post, message.get("message"))
         );
     };
+
+    @PostMapping("/comments/{comment_id}/replies")
+    public Comment replyToComment(
+            @PathVariable Long comment_id,
+            @RequestBody Map<String, String> message,
+            Principal principal
+    ) {
+        Comment comment = commentRepository.findById(comment_id).orElseThrow(
+                () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND
+                )
+        );
+
+        User user = userRepository.findByName(principal.getName());
+        
+        return commentRepository.save(
+                new Comment(user, comment, message.get("message"))
+        );
+    }
+    
 }

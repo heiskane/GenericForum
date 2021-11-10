@@ -11,7 +11,7 @@ export default function ForumPostsComments({comments}) {
         {comments.map((comment, index) =>
           <ForumPostComment
             key={index}
-            comment={comment}/>
+            comment={comment} />
         )}
     </Box>
   )
