@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import CommentReplyForm from './CommentReplyForm';
+import CommentDeleteButton from './CommentDeleteButton';
 
 export default function ForumPostComment({comment, parentComment, iteration = 0}) {
 
@@ -17,11 +18,17 @@ export default function ForumPostComment({comment, parentComment, iteration = 0}
     instance.get(comment._links.replies.href)
       .then((res) => {
         setReplies(res.data._embedded.comments.reverse())
+      })
+      .catch((err) => {
+        console.log(err)
       });
 
     instance.get(comment._links.user.href)
       .then((res) => {
         setUser(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
       });
 
   }, [comment])
@@ -66,6 +73,7 @@ export default function ForumPostComment({comment, parentComment, iteration = 0}
             </Button>
           )
         }
+        <CommentDeleteButton comment={comment} />
       </Box>
       <RenderReplies />
     </Box>

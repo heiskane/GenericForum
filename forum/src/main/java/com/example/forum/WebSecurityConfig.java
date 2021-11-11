@@ -35,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                  .antMatchers("/", "/login").permitAll()
-                  .antMatchers(HttpMethod.POST, "/api/users").permitAll()
+                  .antMatchers("/", "/login", "/register").permitAll()
+                  .antMatchers(HttpMethod.DELETE, "/api/**").hasAuthority("ADMIN")
                   .anyRequest().authenticated()
                   .and()
                 .formLogin().successHandler(new AuthenticationSuccessHandler() {
@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 registry
                         .addMapping("/**")
                         .allowedMethods("POST", "PUT", "GET",  "DELETE", "OPTIONS")
-                        .allowedOrigins("http://localhost:3000")
+                        .allowedOrigins("http://localhost:3000", "http://example.com")
                         .allowCredentials(true).maxAge(3600);
             }
         };

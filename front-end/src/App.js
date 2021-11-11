@@ -30,7 +30,7 @@ function App() {
   }
 
   function logout(e) {
-    //e.preventDefault();
+    e.preventDefault();
     removeCookie('JSESSIONID');
     setUsername("");
   }
@@ -42,7 +42,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Header username={username} logout={logout} />
-            <Forum />
+            <Forum username={username} />
           </Route>
           <Route path="/login">
             <Header username={username} logout={logout} />

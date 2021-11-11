@@ -26,7 +26,7 @@ export default function LoginForm({loginUser}) {
       }))
       .then((res) => {
         if (res.status === 200) {
-          console.log("idk")
+          //console.log("idk")
         }
       })
       .catch((err) => {

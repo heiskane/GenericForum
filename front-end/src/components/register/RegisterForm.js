@@ -21,14 +21,16 @@ export default function RegisterForm() {
   async function handleSubmit(event) {
     event.preventDefault();
     const instance = axios.create();
-    await instance.post('/api/users', {
+    await instance.post('/register', {
         name: username,
         email: email,
         password: password,
       })
       .then((res) => {
-        if (res.status === 201) {
+        if (res.status === 200) {
           setRedirect(true);
+        } else {
+          alert("Something went wrong")
         }
       })
       .catch((err) => {

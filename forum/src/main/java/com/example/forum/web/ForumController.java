@@ -88,6 +88,12 @@ public class ForumController {
         );
     }
 
+    @PostMapping("/register")
+    public User register(@RequestBody Map<String, String> user) {
+        return userRepository.save(
+                new User(user.get("name"), user.get("email"), user.get("password")));
+    }
+
     @GetMapping("/profile")
     public User get_curr_user(Principal principal) {
         return userRepository.findByName(principal.getName());

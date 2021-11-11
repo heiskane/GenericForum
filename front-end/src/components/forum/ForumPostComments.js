@@ -2,8 +2,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import ForumPostComment from './ForumPostComment'
+import CommentDeleteButton from './CommentDeleteButton'
 
-export default function ForumPostsComments({comments}) {
+export default function ForumPostsComments({comments, state}) {
 
   return (
     <Box>
