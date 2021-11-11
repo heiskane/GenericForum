@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 registry
                         .addMapping("/**")
                         .allowedMethods("POST", "PUT", "GET",  "DELETE", "OPTIONS")
-                        .allowedOrigins("http://localhost:3000", "http://example.com")
+                        .allowedOrigins("http://localhost:3000", "http://172.105.83.229")
                         .allowCredentials(true).maxAge(3600);
             }
         };
