@@ -17,7 +17,7 @@ public class SpringDataRestConfig implements RepositoryRestConfigurer {
         cors
                 .addMapping("/**")
                 .allowedMethods("POST", "PUT", "GET",  "DELETE", "OPTIONS")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("http://localhost:3000", "http://172.105.83.229")
                 .allowCredentials(true).maxAge(3600);
 
         // Expose IDs in the api
