@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  api:
+    build:
+      context: ./forum
+      dockerfile: Dockerfile
+    ports:
+      - 127.0.0.1:8080:8080
+    depends_on:
+      - db
+
+  db:
+    image: "postgres"
+    environment:
+      POSTGRES_PASSWORD: fbb62ee429afd6df81fbd770f9f08b5b022279234fbf375c6dea3729f1732ba8
+      POSTGRES_DB: forum
+    volumes:
+      - database-data:/var/lib/postgresql/data
+
+volumes:
+  database-data:

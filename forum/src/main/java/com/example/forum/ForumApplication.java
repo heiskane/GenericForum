@@ -24,6 +24,7 @@ public class ForumApplication {
 			CommentRepository commentRepository) {
 		return (args) -> {
 			log.info("Commandline runner test");
+			/*
 			User user1 = new User("admin", "test1@example.com", "admin");
 			user1.setRole("ADMIN");
 
@@ -83,6 +84,8 @@ public class ForumApplication {
 			commentRepository.save(reply1);
 			commentRepository.save(reply2);
 			commentRepository.save(reply3);
+
+			 */
 
 		};
 	}
